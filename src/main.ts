@@ -26,7 +26,7 @@ interface PortfolioData {
 // 1. HARDCODED DATA (No backend needed anymore!)
 const localPortfolioData: PortfolioData = {
     profile: {
-        image: "/images/pnp.jpg",
+        image: "/images/pfp.jpg",
         name: "Kern Morden",
         stats: "Computer Engineering Student | Python, C#, C++, Lua | Software Enthusiast",
         bioPart1: "A ",
