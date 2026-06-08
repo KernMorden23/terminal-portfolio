@@ -13,7 +13,6 @@
             padding: 0; 
         }
         
-        /* Deep Cyberpunk Background */
         body { 
             background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #050505 100%);
             color: #ffffff; 
@@ -26,7 +25,6 @@
             overflow: hidden;
         }
 
-        /* The CRT Scanline Overlay */
         body::after {
             content: "";
             position: absolute;
@@ -40,9 +38,9 @@
             );
             pointer-events: none;
             z-index: 9999;
+            position: fixed;
         }
 
-        /* Interactive Input Styles */
         .cmd-input {
             background: transparent;
             border: none;
@@ -54,7 +52,6 @@
             caret-color: #58a6ff;
         }
         
-        /* Fixed Invisible Shield Bug here */
         .portfolio-container { 
             display: flex; 
             gap: 24px; 
@@ -72,7 +69,6 @@
             width: 320px; 
         }
         
-        /* Upgraded Frosted Glass Widgets */
         .widget { 
             background: rgba(15, 15, 25, 0.65); 
             backdrop-filter: blur(16px); 
@@ -148,15 +144,6 @@
         .activity-details h5 { font-size: 0.9rem; color: #e5e5e5; }
         .activity-details p { font-size: 0.75rem; color: #8b949e; margin-top: 2px; }
         
-        /* CRT Terminal Window */
-        @keyframes crt-flicker {
-            0% { opacity: 0.98; }
-            5% { opacity: 0.95; }
-            10% { opacity: 0.99; }
-            15% { opacity: 1; }
-            100% { opacity: 1; }
-        }
-
         .terminal-window { 
             flex: 1; 
             background: #0a0a0f; 
@@ -166,8 +153,6 @@
             flex-direction: column; 
             box-shadow: 0 0 30px rgba(96, 165, 250, 0.1), 0 20px 50px rgba(0,0,0,0.8); 
             overflow: hidden; 
-            /* Fixed Safari Flicker Bug by disabling infinite animation */
-            /* animation: crt-flicker 0.15s infinite; */
         }
         
         .title-bar { 
@@ -204,25 +189,68 @@
             overflow-y: auto; 
         }
         
-        /* Hacker Accent Colors */
         .ascii-art { color: #60a5fa; white-space: pre; margin-bottom: 20px; font-size: 14px; line-height: 1.2; text-shadow: 0 0 10px rgba(96,165,250,0.3); }
         .highlight { color: #3fb950; text-shadow: 0 0 8px rgba(63, 185, 80, 0.4); font-weight: bold; } 
         .accent { color: #58a6ff; }
         
-        .prompt-line { display: flex; margin-top: 25px; align-items: center; }
+        .prompt-line { display: flex; margin-top: 25px; align-items: center; flex-wrap: wrap; }
         .prompt { color: #3fb950; margin-right: 10px; }
 
-        /* Custom Scrollbar for Terminal */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0f; }
         ::-webkit-scrollbar-thumb { background: rgba(96, 165, 250, 0.3); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(96, 165, 250, 0.6); }
 
+        @media (max-width: 850px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                display: block;
+                padding: 15px;
+                overflow-y: auto;
+            }
+            .portfolio-container {
+                flex-direction: column;
+                height: auto;
+                gap: 16px;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .terminal-window {
+                min-height: 60vh;
+                margin-bottom: 30px;
+            }
+            .time-widget {
+                justify-content: space-around;
+            }
+            .ascii-art {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terminal-content {
+                padding: 15px;
+                font-size: 0.85rem;
+            }
+            .title-text {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="portfolio-container">
         <div class="sidebar">
+            <div class="widget profile-widget">
+                <div class="profile-pic"></div>
+                <div class="profile-info">
+                    <h3 id="ui-name"></h3>
+                    <p id="ui-stats"></p>
+                </div>
+            </div>
+
             <div class="widget time-widget">
                 <div class="clock-container">
                     <div id="local-time" class="clock-time">00:00</div>
@@ -231,14 +259,6 @@
                 <div class="clock-container">
                     <div id="ph-time" class="clock-time">00:00</div>
                     <h4>My Time</h4><p>Asia/Manila</p>
-                </div>
-            </div>
-            
-            <div class="widget profile-widget">
-                <div class="profile-pic"></div>
-                <div class="profile-info">
-                    <h3 id="ui-name"></h3>
-                    <p id="ui-stats"></p>
                 </div>
             </div>
             
