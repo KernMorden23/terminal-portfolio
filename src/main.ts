@@ -26,21 +26,21 @@ interface PortfolioData {
 // 1. HARDCODED DATA (No backend needed anymore!)
 const localPortfolioData: PortfolioData = {
     profile: {
-        image: "/images/pfp.jpg",
+        image: "/images/pfp.png",
         name: "Kern Morden",
         stats: "Computer Engineering Student | Python, C#, C++, Lua | Software Enthusiast",
         bioPart1: "A ",
         bioHighlight1: "chill guy",
         bioPart2: " & ",
-        bioHighlight2: "Roblox Lua developer",
+        bioHighlight2: "Software Programmer Student",
         bioPart3: " from ",
         bioAccent: "Angeles",
         subBio: "Computer Engineering Student | Python, C#, C++, Lua | Software Enthusiast"
     },
     activities: [
-        { image: "/images/Inventory.png", title: "Released v1.0.0", project: "Philippines SJDM Project", date: "May 03" },
+        { image: "/images/SJDM.png", title: "Released v1.0.0", project: "Philippines SJDM Project", date: "May 03" }, // Updated
         { image: "/images/Inventory.png", title: "Committed code", project: "Inventory OS (Python/Flet)", date: "Apr 15" },
-        { image: "/images/Inventory.png", title: "Action Research Prototype", project: "ESP32 Smart Stoplight", date: "Mar 28" }
+        { image: "/images/Stoplight.png", title: "Action Research Prototype", project: "ESP32 Smart Stoplight", date: "Mar 28" } // Updated
     ]
 };
 
