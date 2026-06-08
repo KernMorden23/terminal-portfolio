@@ -23,50 +23,64 @@ interface PortfolioData {
     activities: Activity[];
 }
 
-async function fetchPortfolioData(): Promise<void> {
-    try {
-        const response = await fetch('http://localhost:3000/api/data');
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data: PortfolioData = await response.json();
-        
-        const profilePicEl = document.querySelector('.profile-pic') as HTMLElement;
-        if (profilePicEl) {
-            profilePicEl.innerHTML = `<img src="${data.profile.image}" alt="Kern Morden" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">`;
-        }
-        
-        (document.getElementById('ui-name') as HTMLElement).innerText = data.profile.name;
-        (document.getElementById('ui-stats') as HTMLElement).innerText = data.profile.stats;
-        
-        (document.getElementById('term-name') as HTMLElement).innerText = data.profile.name;
-        (document.getElementById('term-bio') as HTMLElement).innerHTML = `${data.profile.bioPart1}<span class="highlight">${data.profile.bioHighlight1}</span>${data.profile.bioPart2}<span class="highlight">${data.profile.bioHighlight2}</span>${data.profile.bioPart3}<span class="accent">${data.profile.bioAccent}</span>`;
-        (document.getElementById('term-subbio') as HTMLElement).innerText = data.profile.subBio;
+// 1. HARDCODED DATA (No backend needed anymore!)
+const localPortfolioData: PortfolioData = {
+    profile: {
+        image: "/images/pnp.jpg",
+        name: "Kern Morden",
+        stats: "Computer Engineering Student | Python, C#, C++, Lua | Software Enthusiast",
+        bioPart1: "A ",
+        bioHighlight1: "chill guy",
+        bioPart2: " & ",
+        bioHighlight2: "Roblox Lua developer",
+        bioPart3: " from ",
+        bioAccent: "Angeles",
+        subBio: "Computer Engineering Student | Python, C#, C++, Lua | Software Enthusiast"
+    },
+    activities: [
+        { image: "/images/Inventory.png", title: "Released v1.0.0", project: "Philippines SJDM Project", date: "May 03" },
+        { image: "/images/Inventory.png", title: "Committed code", project: "Inventory OS (Python/Flet)", date: "Apr 15" },
+        { image: "/images/Inventory.png", title: "Action Research Prototype", project: "ESP32 Smart Stoplight", date: "Mar 28" }
+    ]
+};
 
-        const activityContainer = document.getElementById('activity-container') as HTMLElement;
-        activityContainer.innerHTML = '';
-        
-        data.activities.forEach((activity: Activity) => {
-            const itemHTML = `
-                <div class="activity-item">
-                    <div class="activity-icon">
-                        <img src="${activity.image}" alt="icon" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px;">
-                    </div>
-                    <div class="activity-details">
-                        <h5>${activity.title}</h5>
-                        <p>${activity.project}</p>
-                        <p>${activity.date}</p>
-                    </div>
-                </div>
-            `;
-            activityContainer.innerHTML += itemHTML;
-        });
-
-    } catch (error) {
-        const container = document.getElementById('activity-container') as HTMLElement;
-        container.innerHTML = `<p style="color: #ff5f56; font-size: 0.8rem;">Failed to connect to backend API.</p>`;
+// 2. INJECT DATA DIRECTLY
+function loadPortfolioData(): void {
+    const data = localPortfolioData;
+    
+    const profilePicEl = document.querySelector('.profile-pic') as HTMLElement;
+    if (profilePicEl) {
+        profilePicEl.innerHTML = `<img src="${data.profile.image}" alt="Kern Morden" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">`;
     }
+    
+    (document.getElementById('ui-name') as HTMLElement).innerText = data.profile.name;
+    (document.getElementById('ui-stats') as HTMLElement).innerText = data.profile.stats;
+    
+    (document.getElementById('term-name') as HTMLElement).innerText = data.profile.name;
+    (document.getElementById('term-bio') as HTMLElement).innerHTML = `${data.profile.bioPart1}<span class="highlight">${data.profile.bioHighlight1}</span>${data.profile.bioPart2}<span class="highlight">${data.profile.bioHighlight2}</span>${data.profile.bioPart3}<span class="accent">${data.profile.bioAccent}</span>`;
+    (document.getElementById('term-subbio') as HTMLElement).innerText = data.profile.subBio;
+
+    const activityContainer = document.getElementById('activity-container') as HTMLElement;
+    activityContainer.innerHTML = '';
+    
+    data.activities.forEach((activity: Activity) => {
+        const itemHTML = `
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <img src="${activity.image}" alt="icon" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px;">
+                </div>
+                <div class="activity-details">
+                    <h5>${activity.title}</h5>
+                    <p>${activity.project}</p>
+                    <p>${activity.date}</p>
+                </div>
+            </div>
+        `;
+        activityContainer.innerHTML += itemHTML;
+    });
 }
 
+// 3. CLOCKS & TERMINAL (Unchanged)
 function initClocks(): void {
     const lastLoginEl = document.getElementById('last-login') as HTMLElement;
     lastLoginEl.innerText = new Date().toDateString() + " " + new Date().toLocaleTimeString();
@@ -80,7 +94,6 @@ function initClocks(): void {
         }).format(now);
         (document.getElementById('ph-time') as HTMLElement).innerText = phTime;
     }
-
     setInterval(updateClocks, 1000);
     updateClocks();
 }
@@ -114,7 +127,6 @@ function initTerminal(): void {
                 
                 target.parentElement?.insertAdjacentElement('afterend', responseDiv);
             }
-
             createNewPrompt(terminalContent);
         }
     });
@@ -137,11 +149,11 @@ function processCommand(cmd: string): string {
                 <span class="accent">clear</span>    - Wipe terminal output
             `;
         case 'whoami':
-            return `Kern Morden.<br>Computer Engineering Student and C++, C#, C, and Luau student developer.<br>Just a chill guy building cool systems.`;
+            return `Kern Morden.<br>Computer Engineering Student and Lua developer operating out of Angeles.<br>Just a chill guy building cool systems.`;
         case 'skills':
             return `
                 <span class="highlight">Languages:</span> Python, C#, C++, Lua, TypeScript<br>
-                <span class="highlight">Tools:</span> Microsoft Visual Studio Code, Flet, Hardware Systems, Express.js, Vite, Roblox Studio, SQL, Git, GitHub.
+                <span class="highlight">Tools:</span> Flet, ESP32, Express.js, Vite, Roblox Studio
             `;
         case 'projects':
             return `
@@ -174,13 +186,12 @@ function createNewPrompt(terminalContent: HTMLElement): void {
     `;
     
     terminalContent.appendChild(newPrompt);
-    
     const newInput = newPrompt.querySelector('.cmd-input') as HTMLInputElement;
     newInput.focus();
-    
     terminalContent.scrollTop = terminalContent.scrollHeight;
 }
 
-fetchPortfolioData();
+// 4. BOOT UP
+loadPortfolioData();
 initClocks();
 initTerminal();
