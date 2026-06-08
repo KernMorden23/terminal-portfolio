@@ -163,11 +163,11 @@ function processCommand(cmd: string): string {
             `;
         case 'socials':
             return `
-                [<span class="highlight">LinkedIn</span>] linkedin.com/in/kernmorden<br>
-                [<span class="highlight">Twitter</span>]  twitter.com/kernmorden
+                [<span class="highlight">LinkedIn</span>] linkedin.com/in/SECRETHULAANMO<br>
+                [<span class="highlight">Twitter</span>]  twitter.com/SECRETHULAANMO
             `;
         case 'github':
-            return `Accessing mainframes...<br>GitHub: <a href="https://github.com/kernmorden" target="_blank" style="color: #60a5fa; text-decoration: none;">github.com/kernmorden</a>`;
+            return `Accessing mainframes...<br>GitHub: <a href="https://github.com/KernMorden23" target="_blank" style="color: #60a5fa; text-decoration: none;">github.com/KernMorden23</a>`;
         default:
             return `zsh: command not found: ${cmd}. Type '<span class="accent">help</span>' for available commands.`;
     }
